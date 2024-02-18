@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Карта</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    #map {
+      height: 1080px;
+    }
+  </style>
+</head>
+<body>
+    <div style = "display: flex; align-items: center; justify-content: center;">
+        <div id="map" style="width: 960px; height: 540px; margin-top: 10%;"></div></div>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('map').setView([50.3834327082762, 30.60153417918023], 10); 
+
+    var streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      maxZoom: 19,
+      attribution: 'Tiles &copy; Esri &mdash; Source: Esri'
+    });
+
+    var baseMaps = {
+      "Вулиці": streets,
+      "Супутник": satellite
+    };
+
+    L.control.layers(baseMaps).addTo(map);
+
+    var geojsonFeaturePoint = {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [30.549163267811792,
+          50.46601155725466]
+          },
+          "properties": {
+          
+          }
+        }
+      ]
+    };
+
+    L.geoJSON(geojsonFeaturePoint).addTo(map);
+
+    var geojsonFeaturePolygon = {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+          [
+              30.468914829762497,
+              50.4366456041551
+            ],
+            [
+              30.468914829762497,
+              50.42951404636162
+            ],
+            [
+              30.488984333262636,
+              50.42951404636162
+            ],
+            [
+              30.488984333262636,
+              50.4366456041551
+            ],
+            [
+              30.468914829762497,
+              50.4366456041551
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        
+      }
+    };
+
+    L.geoJSON(geojsonFeaturePolygon).addTo(map);
+
+    var geojsonFeatureLine = {
+      "type": "Feature",
+      "geometry": {
+        "type": "Line",
+        "coordinates": [
+          [
+            30.568048683785094,
+            50.42363084712403
+          ],
+          [
+            30.61064155806673,
+            50.43739422972854
+          ],
+          [
+            30.605679990660633,
+            50.43561660626858
+          ]
+        ],
+        "type": "LineString"
+      }
+    }
+
+    L.geoJSON(geojsonFeatureLine).addTo(map);
+
+  </script>
+</body>
+</html>
